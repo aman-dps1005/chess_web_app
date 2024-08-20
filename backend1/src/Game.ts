@@ -43,8 +43,6 @@ export class Game{
         from:string,
         to:string
     }){
-        console.log("controller reached first step");
-        console.log(this.moveCount);
         //if it is an odd number of move the player should be player1
         if(this.moveCount%2===0 && socket!=this.player1){
             return;
@@ -54,7 +52,6 @@ export class Game{
             return ;
         }
 
-        console.log("controller reached second step");
         //validate the move
         try{
             this.board.move({from:move.from,to:move.to});
@@ -69,7 +66,7 @@ export class Game{
 
         //if game is over inform both the parties
 
-        console.log("controller reached the game over check");
+
         if(this.board.isGameOver()){
             this.player1.send(JSON.stringify({
                 type:GAMEOVER,
@@ -90,7 +87,6 @@ export class Game{
             return ;
 
         }
-        console.log(this.moveCount%2);
         //if the game is not over then tell next turn;
         if(this.moveCount%2===0){
             this.player2.send(JSON.stringify({
