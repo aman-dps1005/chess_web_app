@@ -28,6 +28,7 @@ class GameManager{
     //methods
     addUser(socket:WebSocket){
         this.users.push(socket);
+        this.handleMessage(socket);
     }
 
     removeUser(socket:WebSocket){

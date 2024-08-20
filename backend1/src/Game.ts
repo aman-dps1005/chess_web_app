@@ -9,7 +9,7 @@ export class Game{
     //rather than maintaining a board or chess we can use chess.js library for a default board that updated with moves
     private board:Chess;
     private startTime:Date;
-    private moveCount:number;
+    private moveCount=0;
 
 
     constructor(player1:WebSocket,player2:WebSocket){
@@ -20,7 +20,7 @@ export class Game{
         this.board=new Chess();
         this.startTime=new Date();
         //whenever the game starts let both the parties know
-        this.moveCount=0;
+
 
         this.player1.send(JSON.stringify({
             //type and payload are just for convinience you can name them anything the websocket will transfer it as a string
@@ -43,6 +43,8 @@ export class Game{
         from:string,
         to:string
     }){
+        console.log("controller reached first step");
+        console.log(this.moveCount);
         //if it is an odd number of move the player should be player1
         if(this.moveCount%2===0 && socket!=this.player1){
             return;
@@ -52,11 +54,10 @@ export class Game{
             return ;
         }
 
-
+        console.log("controller reached second step");
         //validate the move
         try{
             this.board.move({from:move.from,to:move.to});
-            this.moveCount++;
         }
         catch(e){
             //.move throws an error
@@ -68,6 +69,7 @@ export class Game{
 
         //if game is over inform both the parties
 
+        console.log("controller reached the game over check");
         if(this.board.isGameOver()){
             this.player1.send(JSON.stringify({
                 type:GAMEOVER,
@@ -88,7 +90,7 @@ export class Game{
             return ;
 
         }
-
+        console.log(this.moveCount%2);
         //if the game is not over then tell next turn;
         if(this.moveCount%2===0){
             this.player2.send(JSON.stringify({
