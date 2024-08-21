@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {Button} from "../../components/buttonComponent";
+//import {Button} from "../../components/buttonComponent";
 //import {useSocket} from "../../hooks/socket";
 
 export const Landing=()=>{
@@ -13,20 +13,20 @@ export const Landing=()=>{
             </div>            
             <div className="flex flex-col col-span-1 item-center">
                 <h1 className="text-4xl font-bold text-white text-center m-4">Play chess online on the #2 site! </h1>
-                <Button onClick={async()=>{
-                    /*await socket?.send(JSON.stringify({
-                        type:"init_game"
-                    }));*/
-                    navigate("/game");
-                }}>
-                    <div className="col-span-2 h-10 w-10 self-center">
+                <button className="p-4 rounded-lg bg-green-500 text-white flex items-center gap-4 m-4"
+                    onClick={()=>{
+                        navigate("/game");
+                    }}
+                    >
+                         <div className="col-span-2 h-10 w-10 self-center">
                         <img src="/strategy.png"/>
                     </div>
                     <div className="col-span-9">
                         <div className="font-bold text-white text-2xl text-start">Play Online</div>
                         <p className="text-sm text-white">play with someone at your level</p>
                     </div>
-                </Button>
+                    </button>
+                   
             </div>
         </div>
     </div>
