@@ -1,0 +1,7 @@
+export const Game=()=>{
+    return(
+        <div className="bg-red-300">
+            game page
+        </div>
+    )
+}
