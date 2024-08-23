@@ -51,9 +51,11 @@ class GameManager{
                     const game=new Game(this.PendingUser,socket);
                     this.games.push(game);
                     this.PendingUser=null;
+                    console.log(game);
                 }
                 else{
                     this.PendingUser=socket;
+                    console.log(this.PendingUser);
                 }
             }
 

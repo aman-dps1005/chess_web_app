@@ -18,8 +18,8 @@ function App() {
           <li className='p-3'><a href="#">Profile</a></li>
         </ul>
         <hr/>
-        <div className='p-3'><button className="bg-slate-500 p-2 rounded-md text-white">Sign Up</button></div>
-        <div className="p-3"><button className='bg-green-500 p-2 rounded-md text-white'>Log In</button></div>
+        <div className='p-3'><button className="bg-slate-500 p-2 rounded-md text-white hover:bg-gradient-to-r hover:from-pink-500 hover:to-orange-500 font-bold">Sign Up</button></div>
+        <div className="p-3"><button className='bg-green-500 p-2 rounded-md text-white hover:bg-gradient-to-r hover:from-pink-500 hover:to-orange-500 font-bold'>Log In</button></div>
 
         <footer className='p-3 mt-auto'>
           <div className='text-gray-300 mb-2'>english</div>
