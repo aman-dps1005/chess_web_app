@@ -67,7 +67,8 @@ class GameManager{
                 //game?.makeMove(socket,message.move);
 
                 if(game){
-                    game.makeMove(socket,message.move);
+                    game.makeMove(socket,message.payload);
+                    console.log(message.payload);
                 }
             }
         })

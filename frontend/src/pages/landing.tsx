@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export const Landing=()=>{
     const navigate=useNavigate();
 
-    return <div className="bg-gradient-to-b from-slate-800 via-slate-700 to-slate-500 h-screen">
+    return <div className="bg-gradient-to-b from-zinc-900 to-zinc-800 h-screen">
         <div className="flex justify-center grid-col-6 gap-4 h-screen pt-8">
             <div className="h-1/4 w-1/4 col-span-5">
                 <img src="/chessBoard.jpeg" className="rounded-lg"/>

@@ -1,6 +1,6 @@
 import { WebSocket } from "ws";
 import {Chess} from "chess.js";
-import { GAMEOVER, INIT_MESSAGE, MOVE } from "./messages";
+import { GAMEOVER, INIT_MESSAGE, INVALID, MOVE, VALID } from "./messages";
 export class Game{
     player1:WebSocket;
     player2:WebSocket;
@@ -9,7 +9,6 @@ export class Game{
     //rather than maintaining a board or chess we can use chess.js library for a default board that updated with moves
     private board:Chess;
     private startTime:Date;
-    private moveCount=0;
 
 
     constructor(player1:WebSocket,player2:WebSocket){
@@ -36,28 +35,56 @@ export class Game{
                 color:"Black"
             }
         }));
+
+        
     }
 
 
     makeMove(socket:WebSocket,move:{
         from:string,
-        to:string
+        to:string,
+        
     }){
-        //if it is an odd number of move the player should be player1
-        if(this.moveCount%2===0 && socket!=this.player1){
-            return;
-        }
-        //if it is an even number of move then player should be player2
-        if(this.moveCount%2===1 && socket!=this.player2){
-            return ;
-        }
-
         //validate the move
         try{
-            this.board.move({from:move.from,to:move.to});
+            if(this.board.turn()==='w' && socket!=this.player1){
+                return;
+            }
+            if(this.board.turn()==='b' && socket!=this.player2){
+                return;
+            }
+            //check if valid player then the move is valid or not
+            const result=this.board.move({from:move.from,to:move.to});
+            if(result){
+                if(this.board.turn()==='b'){
+                    this.player2.send(JSON.stringify({
+                        type:MOVE,
+                        payload:move
+                    }))
+                }
+                else{
+                    this.player1.send(JSON.stringify({
+                        type:MOVE,
+                        payload:move
+                    }))
+                }
+            }
+            else{
+                console.log("invalid move");
+                socket.send(JSON.stringify({
+                    type:INVALID,
+                    payload:move
+                }));
+            }
+
         }
         catch(e){
             //.move throws an error
+
+            socket.send(JSON.stringify({
+                type:INVALID,
+                payload:move
+            }))
             return;
             //this means it was an invalid move
         }
@@ -88,20 +115,7 @@ export class Game{
 
         }
         //if the game is not over then tell next turn;
-        if(this.moveCount%2===0){
-            this.player2.send(JSON.stringify({
-                type:MOVE,
-                payload:move
-            }))
-        }
-        else{
-            this.player1.send(JSON.stringify({
-                type:MOVE,
-                payload:move
-            }))
-        }
-        //movecount goes everytime there is a valid move
-        this.moveCount++;
+        
 
     }
 };

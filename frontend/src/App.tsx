@@ -1,16 +1,16 @@
 import './App.css';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
-import { Landing } from './pages/landing';
+import { Landing } from "./pages/landing";
 import { Game } from './pages/game';
 
 function App() {
-
+  
   return (
     <div className='grid grid-cols-10 h-screen w-screen'>
       <div id="sidebar" className='flex flex-col col-span-1 bg-gray-800'>
         <h2 className='text-white font-bold m-3 text-xl'>MyChess.com</h2>
         <ul className='text-white font-bold'>
-          <li className='p-3'><a href="#">Home</a></li>
+          <li className='p-3'><a href="/landing">Home</a></li>
           <li className='p-3'><a href="#">Play</a></li>
           <li className='p-3'><a href="#">Puzzles</a></li>
           <li className='p-3'><a href="#">Lessons</a></li>
